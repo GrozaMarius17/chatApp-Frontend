@@ -2,34 +2,25 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import { Message } from './model/Message';
 
 function App() {
 
   const [chatApp, setChatApp] =  useState<any>({});
+  const[messages, setMessages] =  useState<Message[]>([]);
 
-  
+
+  const getMessages = () => {
+    axios.get('http://localhost:8080/chatApp?').then((response) => setMessages(response.data));
+  }
+  useEffect(() => { axios.get('http://localhost:8080/chatApp/messages').then((response) => setMessages(response.data)) }, []);
   useEffect(() => {axios.get('http://localhost:8080/chatApp').then((response) => setChatApp(response.data)) }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!!!!
-        </a>
-        <p>
-          {chatApp}
-        </p>
-      </header>
-    </div>
-  );
+   <div>  
+      {messages.map(message => <div>{message.text}</div>)}
+   </div> 
+
+  )
 }
 
 export default App;
