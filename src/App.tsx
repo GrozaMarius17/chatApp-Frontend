@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
 function App() {
+
+  const [chatApp, setChatApp] =  useState<any>({});
+
+  
+  useEffect(() => {axios.get('http://localhost:8080/chatApp').then((response) => setChatApp(response.data)) }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -16,8 +22,11 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React!!!!
         </a>
+        <p>
+          {chatApp}
+        </p>
       </header>
     </div>
   );
