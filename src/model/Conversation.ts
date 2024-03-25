@@ -5,7 +5,6 @@ export type Conversation = {
     userFrom: User
     userTo: User
     message: Message
-    
 }
 
 export {};
